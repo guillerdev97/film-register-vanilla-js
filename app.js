@@ -89,6 +89,8 @@ function renderFilms(filmName, filmPosition) {
 
                 localStorage.setItem("films", JSON.stringify(db));
 
+                alert("You have changed the film title");
+
                 location.reload();
             }
         })
