@@ -19,7 +19,7 @@ form.addEventListener("submit", (e) => {
         }
         films.push(film);
         localStorage.setItem("films", JSON.stringify(films));
-        renderFilms(film.name);
+        renderFilms(film.name, film.id);
         db = JSON.parse(localStorage.getItem("films"));
     }
 
@@ -31,14 +31,14 @@ form.addEventListener("submit", (e) => {
         }
         films.push(film);
         localStorage.setItem("films", JSON.stringify(films));
-        renderFilms(film.name);
+        renderFilms(film.name, film.id);
         db = JSON.parse(localStorage.getItem("films"));
     }
     
     input.value = "";
 })
 
-function renderFilms(filmName) {
+function renderFilms(filmName, filmPosition) {
     const filmElement = document.createElement("li");
     filmElement.classList.add("filmElement");
     filmElement.innerText = filmName;
@@ -46,6 +46,18 @@ function renderFilms(filmName) {
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("deleteButton");
     deleteButton.innerText = "Delete";
+
+    deleteButton.addEventListener("click", () => {
+        deleteButton.parentElement.remove();
+
+        db.forEach((film, index) => {
+            if(film.id === filmPosition) {
+                db.splice(index, 1);
+                
+                localStorage.setItem("films", JSON.stringify(db));
+            }
+        })
+    })
     
     const editButton = document.createElement("button");
     editButton.classList.add("editButton");
