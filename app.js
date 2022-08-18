@@ -7,6 +7,12 @@ const deleteAll = document.getElementById("reset");
 
 let db = JSON.parse(localStorage.getItem("films"));
 
+if(db) {
+    db.forEach((film) => {
+        renderFilms(film.name, film.id);
+    })
+}
+
 form.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -36,6 +42,12 @@ form.addEventListener("submit", (e) => {
     }
     
     input.value = "";
+})
+
+deleteAll.addEventListener("click", () => {
+    localStorage.clear();
+
+    location.reload();
 })
 
 function renderFilms(filmName, filmPosition) {
