@@ -75,6 +75,26 @@ function renderFilms(filmName, filmPosition) {
     editButton.classList.add("editButton");
     editButton.innerText = "Edit";
 
+    editButton.addEventListener("click", () => {
+        const newFilm = prompt("Change film");
+
+        db.forEach((film) => {
+            if(film.id === filmPosition) {
+                filmElement.innerHTML = `
+                    ${newFilm}
+                    <button class="editButton">Edit</button>
+                    <button class="deleteButton">Delete</button>
+                `
+                film.name = newFilm;
+
+                localStorage.setItem("films", JSON.stringify(db));
+
+                location.reload();
+            }
+        })
+    }
+)
+
     filmElement.appendChild(editButton);
     filmElement.appendChild(deleteButton);
     filmContent.appendChild(filmElement);
